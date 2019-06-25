@@ -8,6 +8,49 @@
 </head>
 
 <body>
+<style>
+body {
+  margin: 40px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 10px;
+  background-color: #fff;
+  color: #444;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+
+.left {
+  text-align: right;
+  width: 600px;
+  line-height: 20px
+}
+
+.right {
+  text-align: left;
+  width: 400px;
+  line-height: 20px
+}
+
+
+.mono {
+  font-family: monospace;
+}
+
+</style>
+
 
 <d-front-matter>
   <script type="text/json">{
@@ -42,34 +85,62 @@
 <d-title></d-title>
 
 <d-article>
-
+<!-- 
   <p>
 Ilya' et al's heuristics for disentangling robust and non-robust features have the potential to signal a dramatic change in our understanding of adverserial examples; thus it is important for us to take stock of how well these constructions work based on their own stated goals. 
   </p>
-
+ -->
   <p>
-In this manuscript, we attempt to quantify the degree of leakage of robust features in the non-robust datasets, generated from adverserial examples. 
+Here we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adverserial examples. We demonstrate a method for lower bounding feature leakage constisting of two steps:
+
+    <ul>
+      <li>First, we construct hand-crafted features $f_i$ that are provabily robust. <d-footnote> on the training dataset on an $\epsilon=0.25$ $l_2$ adversary. (Footnote: We are operating under the assumption, based on a reading of Equation 5 in Ilyas. et.al, that all the features come from a certifiabily robust model are robust.)</d-footnote></li>
+      <li>Next, we train a linear model on these features on the datasets <span class="mono">non_robust_CIFAR</span> and <span class="mono">ddet_CIFAR</span> , and evaluate its accuracy.</li>
+    </ul>
   </p>
-
   <p>
-Our method for lower bounding feature leakage consists of the following two steps:
+We refer to the accuracy here as accuracy explained by robust features in a non-robust dataset. The results are summarized:
 
-<ul>
-  <li>First, we construct hand-crafted features $f_i$ that are provabily robust on the training dataset on an $\epsilon=0.25$ $l_2$ adversary. (Footnote: We are operating under the assumption, based on a reading of Equation 5 in Ilyas. et.al, that all the features come from a certifiabily robust model are robust.)</li>
-  <li>Next, we train a linear model on these features on `d_det` and `d_rand`, and evaluate its accuracy.</li>
-</ul>
   </p>
+  <div>
+    <center>
+    <table>
+      <tbody>
+        <tr>
+          <td class="left">Accuracy on CIFAR 10</td>
+          <td>95.1%</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="left">Accuracy on <span class="mono">d_non_robust</span></td>
+          <td>88.0%</td>
+        </tr>
+        <tr>
+          <td class="left">Accuracy on <b>robust</b> features in <span class="mono">d_non_robust</span></td>
+          <td>22.1%</td>
+          <td class="right">Leakage in <span class="mono">d_non_robust</span> </td>
+        </tr>
+
+        <tr>
+          <td class="left">Accuracy on <span class="mono">ddet_CIFAR</span></td>
+          <td>88.0%</td>
+        </tr>
+        <tr>
+          <td class="left">Accuracy on <b>robust</b> features in <span class="mono">ddet_CIFAR</span></td>
+          <td>22.1%</td>
+          <td class="right">No evidence for leakage in <span class="mono">ddet_CIFAR</span> </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+    </center>
 
   <p>
-Since we are training the non-robust dataset entirely on robust features, this we expect there to the correlation to be close to $0$ in the case of `d_rand` and negative in the case of `d_non-robust`. Thus, if the construction is work, we would expect accuracy from the models constructed in the manner shown above.
+In summary, we find evidence for feature leakage that is sufficient to explain up to 15% of the accuracy on the final model. We have restricted ourselves to linear features, however, and we believe this number may be higher if we used features from a robust neural network.
   </p>
-
   <p>
-The results of this construction are summarized in the following table:
-  </p>
-
-  <p>
-In summary, we find evidence for feature leakage that is sufficient to explain up to [1/8]th of the accuracy on the final model. It is possible, with stronger and more robust features, this number may be higher. We have found, however, no evidence of leakage in the `d_det` constructions. 
+We have found, however, no evidence of leakage in the <span class="mono">ddet_CIFAR</span>. Thus, we do not believe this to impact the author's thesis, and we believe <span class="mono">ddet_CIFAR</span> to be a far more convincing experiment in support of the author's thesis.
   </p> 
 
 </d-article>
