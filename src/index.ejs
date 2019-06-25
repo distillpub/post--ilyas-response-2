@@ -13,6 +13,13 @@ body {
   margin: 40px;
 }
 
+li {
+margin-bottom:0 !important
+}
+
+ul {
+margin-bottom:0 !important
+}
 .wrapper {
   display: grid;
   grid-template-columns: 100px 100px 100px;
@@ -33,15 +40,17 @@ body {
 
 
 .left {
-  text-align: right;
-  width: 600px;
+  text-align: left;
   line-height: 20px
 }
 
 .right {
   text-align: left;
-  width: 400px;
   line-height: 20px
+}
+
+.grey {
+  color:rgb(140,140,140);
 }
 
 
@@ -54,15 +63,11 @@ body {
 
 <d-front-matter>
   <script type="text/json">{
-  "title": "Robust feature leakage in adverserial examples",
+  "title": "Evidence for robust features in adversarial examples",
   "description": "An example project using webpack and svelte-loader and ejs to inline SVGs",
-  "password": "svgs",
+  "password": "bugs",
   "authors": [
     {
-      "author": "Ludwig Schubert",
-      "authorURL": "https://schubert.io/",
-      "affiliation": "Google Brain Team",
-      "affiliationURL": "https://g.co/brain"
     }
   ],
   "katex": {
@@ -90,57 +95,44 @@ body {
 Ilya' et al's heuristics for disentangling robust and non-robust features have the potential to signal a dramatic change in our understanding of adverserial examples; thus it is important for us to take stock of how well these constructions work based on their own stated goals. 
   </p>
  -->
-  <p>
-Here we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adverserial examples. We demonstrate a method for lower bounding feature leakage constisting of two steps:
+
+ <p>
+A reading of <d-cite key="ilyas2019adversarial"></d-cite> may lead one to conclude that adversarial examples are chimeric images for which robust cues point towards the original label and non-robust cues point towards the attacked label. We contend, however, that is possible for adversarial examples to contain <i>some robust cues</i> that point towards the attacked class. We refer to this problem as <i>robust feature leakage</i>.
+</p>
+
+<p>
+In this manuscript we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. Our technique for lower bounding leakage consisting of two steps:
 
     <ul>
-      <li>First, we construct hand-crafted features $f_i$ that are provabily robust. <d-footnote> on the training dataset on an $\epsilon=0.25$ $l_2$ adversary. (Footnote: We are operating under the assumption, based on a reading of Equation 5 in Ilyas. et.al, that all the features come from a certifiabily robust model are robust.)</d-footnote></li>
-      <li>Next, we train a linear model on these features on the datasets <span class="mono">non_robust_CIFAR</span> and <span class="mono">ddet_CIFAR</span> , and evaluate its accuracy.</li>
+      <li>First, we construct features $f_i$ that are provably robust, in a sense will will soon define.</li>
+      <li>Next, we train a linear model on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and $\hat{\mathcal{D}}_{\text{rand}}$ on these robust features <i>only</i>.
     </ul>
   </p>
-  <p>
-We refer to the accuracy here as accuracy explained by robust features in a non-robust dataset. The results are summarized:
 
+  <p>
+  We define, as conservatively as we can, a <i>robust feature</i> as a feature that:
+
+    <ul>
+      <li><i>($\gamma$-robust usefulness)</i> Is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an L2 ball with radius 0.25.</li>
+      <li><i>(Robustness Radius)</i> Comes from a <i>robust model</i> for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the L2 ball.
+    </ul>
   </p>
-  <div>
-    <center>
-    <table>
-      <tbody>
-        <tr>
-          <td class="left">Accuracy on CIFAR 10</td>
-          <td>95.1%</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="left">Accuracy on <span class="mono">d_non_robust</span></td>
-          <td>88.0%</td>
-        </tr>
-        <tr>
-          <td class="left">Accuracy on <b>robust</b> features in <span class="mono">d_non_robust</span></td>
-          <td>22.1%</td>
-          <td class="right">Leakage in <span class="mono">d_non_robust</span> </td>
-        </tr>
-
-        <tr>
-          <td class="left">Accuracy on <span class="mono">ddet_CIFAR</span></td>
-          <td>88.0%</td>
-        </tr>
-        <tr>
-          <td class="left">Accuracy on <b>robust</b> features in <span class="mono">ddet_CIFAR</span></td>
-          <td>22.1%</td>
-          <td class="right">No evidence for leakage in <span class="mono">ddet_CIFAR</span> </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-    </center>
 
   <p>
-In summary, we find evidence for feature leakage that is sufficient to explain up to 15% of the accuracy on the final model. We have restricted ourselves to linear features, however, and we believe this number may be higher if we used features from a robust neural network.
+  We find features that satisfy both conditions simply by training a robust linear model on CIFAR-10, from which we extract 10 features. Because the features are linear, the above two conditions can be certified analytically. Finally, we leave the reader to inspect these features manually to be certain the features do indeed look robust:
+  </p>
+  <figure>
+<img src="https://storage.googleapis.com/clarity-public/ggoh/leak/features.png" width="800px">
+  </figure>
+
+  <p>
+  Training $\hat{\mathcal{D}}_{\text{rand}}$ on the above robust features results in an accuracy of <b>23.5%</b> (out of 88%), while training on $\hat{\mathcal{D}}_{\text{det}}$ results in an accuracy of <b>6.81%</b> (out of 44%), less than chance.
   </p>
   <p>
-We have found, however, no evidence of leakage in the <span class="mono">ddet_CIFAR</span>. Thus, we do not believe this to impact the author's thesis, and we believe <span class="mono">ddet_CIFAR</span> to be a far more convincing experiment in support of the author's thesis.
+  The contrasting results suggest that the problem of feature leakage may be different for the two datasets. On $\hat{\mathcal{D}}_{\text{rand}}$, we find evidence just linear robust features are sufficient to explain approximately 24% <d-footnote>Taken by looking at the quotient of the log likelihoods, 0.563/2.305, as suggested via McFadden's Pseudo-$R^2$</d-footnote> of the accuracy on the final model. Note too that we believe this number may be higher if we used features from a robust neural network. 
+  </p>
+  <p>
+  On $\hat{\mathcal{D}}_{\text{rand}}$, however, we find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is very plausible the majority of the accuracy is driven by non-robust features, exactly the thesis of the section. The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p> 
 
 </d-article>
