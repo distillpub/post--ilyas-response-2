@@ -126,7 +126,7 @@ In this manuscript we attempt to quantify the degree of leakage of robust featur
   </figure>
 
   <p>
-  Training $\hat{\mathcal{D}}_{\text{rand}}$ on the above robust features results in an accuracy of <b>23.5%</b> (out of 88%), while training on $\hat{\mathcal{D}}_{\text{det}}$ results in an accuracy of <b>6.81%</b> (out of 44%), less than chance.
+  Training a linear model on the above robust features on $\hat{\mathcal{D}}_{\text{rand}}$ results in an accuracy of <b>23.5%</b> (out of 88%), while training on $\hat{\mathcal{D}}_{\text{det}}$ results in an accuracy of <b>6.81%</b> (out of 44%), less than chance.
   </p>
   <p>
   The contrasting results suggest that the problem of feature leakage may be different for the two datasets. On $\hat{\mathcal{D}}_{\text{rand}}$, we find evidence just linear robust features are sufficient to explain approximately 24% <d-footnote>Taken by looking at the quotient of the log likelihoods, 0.563/2.305, as suggested via McFadden's Pseudo-$R^2$</d-footnote> of the accuracy on the final model. Note too that we believe this number may be higher if we used features from a robust neural network. 
