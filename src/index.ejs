@@ -63,7 +63,7 @@ margin-bottom:0 !important
 
 <d-front-matter>
   <script type="text/json">{
-  "title": "Evidence for robust features in adversarial examples",
+  "title": "Evidence for the presence of robust features in adversarial examples",
   "description": "An example project using webpack and svelte-loader and ejs to inline SVGs",
   "password": "bugs",
   "authors": [
@@ -90,18 +90,13 @@ margin-bottom:0 !important
 <d-title></d-title>
 
 <d-article>
-<!-- 
-  <p>
-Ilya' et al's heuristics for disentangling robust and non-robust features have the potential to signal a dramatic change in our understanding of adverserial examples; thus it is important for us to take stock of how well these constructions work based on their own stated goals. 
-  </p>
- -->
 
  <p>
-A reading of <d-cite key="ilyas2019adversarial"></d-cite> may lead one to conclude that adversarial examples are chimeric images for which robust cues point towards the original label and non-robust cues point towards the attacked label. We contend, however, that is possible for adversarial examples to contain <i>some robust cues</i> that point towards the attacked class. We refer to this problem as <i>robust feature leakage</i>.
+A reading of  <d-cite key="ilyas2019adversarial"></d-cite> may lead one to conclude that adversarial examples are chimeric images for which robust cues point towards the original label and non-robust cues point towards the attacked label. We contend, however, that the perturbations in adversarial examples may contain some robust cues. 
 </p>
 
 <p>
-In this manuscript we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. Our technique for lower bounding leakage consisting of two steps:
+We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. We refer to this problem as <i>robust feature leakage</i>. In this manuscript we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. Our technique for lower bounding leakage consisting of two steps:
 
     <ul>
       <li>First, we construct features $f_i$ that are provably robust, in a sense will soon define.</li>
@@ -110,19 +105,18 @@ In this manuscript we attempt to quantify the degree of leakage of robust featur
   </p>
 
   <p>
-  We define, as conservatively as we can, a <i>robust feature</i> as a feature that:
+  We define, rather conservatively, a <i>robust feature</i> as a feature that:
 
     <ul>
-      <li><i>($\gamma$-robust usefulness)</i> Is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an L2 ball with radius 0.25.</li>
-      <li><i>(Robustness Radius)</i> Comes from a <i>robust model</i> for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the L2 ball.
+      <li><i>($\gamma$-robust usefulness <d-cite key="ilyas2019adversarial"></d-cite>)</i> Is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.</li>
+      <li><i>(Robustness Radius)</i> Comes from a <i>robust model</i> for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
     </ul>
   </p>
 
   <p>
   We find features that satisfy both conditions simply by training a robust linear model on CIFAR-10, from which we extract 10 features. Because the features are linear, the above two conditions can be certified analytically. Finally, we leave the reader to inspect these features manually to be certain the features do indeed look robust:
   </p>
-  <figure>
-<img src="https://storage.googleapis.com/clarity-public/ggoh/leak/features.png" width="800px">
+  <figure id="robust" style="grid-column: screen;">
   </figure>
 
   <p>
@@ -132,7 +126,7 @@ In this manuscript we attempt to quantify the degree of leakage of robust featur
   The contrasting results suggest that the problem of feature leakage may be different for the two datasets. On $\hat{\mathcal{D}}_{\text{rand}}$, we find evidence nonrobust features only explain 76% <d-footnote> Taken by looking at the quotient of the log likelihoods, 0.563/2.305, as suggested via McFadden's Pseudo-$R^2$</d-footnote> of the accuracy in Table 1 of  <d-cite key="ilyas2019adversarial"></d-cite>. In fact, it is very possible this number could be higher if we used features from a robust neural network. 
   </p>
   <p>
-  On $\hat{\mathcal{D}}_{\text{rand}}$, however, we find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is very plausible the majority of the accuracy is driven by non-robust features, exactly the author's thesis. The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
+  On $\hat{\mathcal{D}}_{\text{rand}}$, however, we find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is very plausible the majority of the accuracy is driven by non-robust features, exactly the thesis of  <d-cite key="ilyas2019adversarial"></d-cite>. The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p> 
 
 </d-article>
