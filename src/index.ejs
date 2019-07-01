@@ -96,38 +96,41 @@ A reading of  <d-cite key="ilyas2019adversarial"></d-cite> may lead one to concl
 </p>
 
 <p>
-We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. We refer to this problem as <i>robust feature leakage</i>. In this manuscript we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. Our technique for lower bounding leakage consisting of two steps:
+We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. We refer to this problem as <i>robust feature leakage</i>. In this manuscript, we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. Our technique for lower bounding leakage consisting of two steps:
 
     <ul>
       <li>First, we construct features $f_i$ that are provably robust, in a sense will soon define.</li>
-      <li>Next, we train a linear model on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and $\hat{\mathcal{D}}_{\text{rand}}$ on these robust features <i>only</i>.
+      <li>Next, we train a linear classifier <d-footnote>as per <d-cite key="ilyas2019adversarial"></d-cite>, Equation 3</d-footnote> on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and $\hat{\mathcal{D}}_{\text{rand}}$ (Defined <d-cite key="ilyas2019adversarial"></d-cite>, Table 1) on these robust features <i>only</i>.
     </ul>
   </p>
 
   <p>
-  We define, rather conservatively, a <i>robust feature</i> as a feature that:
+  We consider accuracy of the linear classifier above as the accuracy explained by robust features only. We propose two definitions for <i>robust feature</i>:
 
     <ul>
-      <li><i>($\gamma$-robust usefulness <d-cite key="ilyas2019adversarial"></d-cite>)</i> Is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.</li>
-      <li><i>(Robustness Radius)</i> Comes from a <i>robust model</i> for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
+      <li><i>($\gamma$-robust usefulness <d-cite key="ilyas2019adversarial"></d-cite>)</i> A feature that is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.</li>
+      <li><i>(Robustness Radius)</i> A feature that comes from a robust model for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
     </ul>
   </p>
 
   <p>
-  We find features that satisfy both conditions simply by training a robust linear model on CIFAR-10, from which we extract 10 features. Because the features are linear, the above two conditions can be certified analytically. Finally, we leave the reader to inspect these features manually to be certain the features do indeed look robust:
+  We find features that satisfy <i>both</i> conditions by using the 10 linear features of a robust linear model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified analytically. Finally, we leave the reader to inspect the weights corresponding to the features manually:
   </p>
   <figure id="robust" style="grid-column: screen;">
   </figure>
 
   <p>
-  Training a linear model on the above robust features on $\hat{\mathcal{D}}_{\text{rand}}$ results in an accuracy of <b>23.5%</b> (out of 88%), while training on $\hat{\mathcal{D}}_{\text{det}}$ results in an accuracy of <b>6.81%</b> (out of 44%), less than chance.
+  Training a linear model on the above robust features on $\hat{\mathcal{D}}_{\text{rand}}$ incurs an accuracy of <b>23.5%</b> (out of 88%), while training on $\hat{\mathcal{D}}_{\text{det}}$ incurs an accuracy of <b>6.81%</b> (out of 44%).
   </p>
   <p>
-  The contrasting results suggest that the problem of feature leakage may be different for the two datasets. On $\hat{\mathcal{D}}_{\text{rand}}$, we find evidence nonrobust features only explain 76% <d-footnote> Taken by looking at the quotient of the log likelihoods, 0.563/2.305, as suggested via McFadden's Pseudo-$R^2$</d-footnote> of the accuracy in Table 1 of  <d-cite key="ilyas2019adversarial"></d-cite>. In fact, it is very possible this number could be higher if we used features from a robust neural network. 
+  The contrasting results suggest that the the two experiements should be interpreted differently. The transfer results of $\hat{\mathcal{D}}_{\text{rand}}$ in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite> should approached with caution: A non-trivial portion of the accuracy can be attributed to robust features. This bound is too, a lower bound based on linear features alone. This number may be higher if we used nonlinear robust features, taken from, say, a robust deep neural network.
   </p>
   <p>
-  On $\hat{\mathcal{D}}_{\text{rand}}$, however, we find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is very plausible the majority of the accuracy is driven by non-robust features, exactly the thesis of  <d-cite key="ilyas2019adversarial"></d-cite>. The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
-  </p> 
+  The results of $\hat{\mathcal{D}}_{\text{rand}}$ in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite> however, are on stronger footing. We find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is very plausible the majority of the accuracy is driven by non-robust features, exactly the thesis of  <d-cite key="ilyas2019adversarial"></d-cite>. 
+  </p>
+<!--   <p>
+  The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
+  </p>  -->
 
 </d-article>
 
