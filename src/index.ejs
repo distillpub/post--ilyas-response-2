@@ -20,6 +20,15 @@ margin-bottom:0 !important
 ul {
 margin-bottom:0 !important
 }
+
+.definition {
+  margin: 10px 50px 10px 50px;
+  border: 0.5px solid rgb(225,225,225);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.04);
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 100px 100px 100px;
@@ -97,24 +106,31 @@ A reading of  <d-cite key="ilyas2019adversarial"></d-cite> may lead one to concl
 
 <p>
 We are concerned, in particular, with the extent to which robust features may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>. We refer to this problem as <i>robust feature leakage</i>. In this manuscript, we attempt to quantify the degree of leakage of robust features in the non-robust datasets generated from adversarial examples. Our technique for lower bounding leakage consisting of two steps:
-
-    <ul>
+  </p>  
+  <div style="margin: 0px 10px 0px 10px">
+    <ol type="1">
       <li>First, we construct features $f_i$ that are provably robust, in a sense will soon define.</li>
       <li>Next, we train a linear classifier <d-footnote>as per <d-cite key="ilyas2019adversarial"></d-cite>, Equation 3</d-footnote> on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and $\hat{\mathcal{D}}_{\text{rand}}$ (Defined <d-cite key="ilyas2019adversarial"></d-cite>, Table 1) on these robust features <i>only</i>.
-    </ul>
-  </p>
+    </ol>
+  </div>
 
   <p>
   We consider accuracy of the linear classifier above as the accuracy explained by robust features only. We propose two definitions for <i>robust feature</i>:
 
-    <ul>
-      <li><i>($\gamma$-robust usefulness <d-cite key="ilyas2019adversarial"></d-cite>)</i> A feature that is $\gamma$-robustly useful for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.</li>
-      <li><i>(Robustness Radius)</i> A feature that comes from a robust model for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
-    </ul>
+    <div class="definition">
+      <b> <i>Definition 1</b>: Multiclass $\gamma$-robust Usefulness</i><br>
+      A feature that is $\gamma$-robustly useful <d-cite key="ilyas2019adversarial"> </d-cite> for at least one of the classes, with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.
+    </div>
+
+    <div class="definition">
+      <b> <i>Definition 2</b>:  Robustness Radius</i><br>
+      A feature that comes from a robust model for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
+    </div>
+
   </p>
 
   <p>
-  We find features that satisfy <i>both</i> conditions by using the 10 linear features of a robust linear model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified analytically. Finally, we leave the reader to inspect the weights corresponding to the features manually:
+  We find features that satisfy <i>both</i> definitions by using the 10 linear features of a robust linear model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified analytically. We leave the reader to inspect the weights corresponding to the features manually:
   </p>
   <figure id="robust" style="grid-column: screen;">
   </figure>
