@@ -101,14 +101,15 @@ margin-bottom:0 !important
 <d-article>
 
 <p>
-Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trained on adversarial examples is effective on clean data. This is a surprising result. The primary driver behind this, <d-cite key="ilyas2019adversarial"></d-cite> suggests, is the non-robust cues imprinted on the dataset during the attack. If robust cues were imprinted too, however, (light as they may be) this presents an alternative mechanism for the transfer. 
+Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trained on adversarial examples is effective on clean data. This is a surprising result. The primary driver behind this, <d-cite key="ilyas2019adversarial"></d-cite> suggests, is the non-robust cues overlaid on the dataset by the adversery. If adverserial examples contain robust cues too, however, (light as they may be) this presents an alternative mechanism for the transfer. 
 </p>
+
 <p>
 The extent to which robust cues may drive the accuracies reported in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite> is a problem we refer to as <i>robust feature leakage</i>. 
 </p>
 
 <p>
-In this manuscript we establish that at least 23.5% (out of 88%) of the accuracy can be explained by robust features in $D_\text{rand}$. This is a simple lower bound, established by a linear model, and there can likely be further leakage. We find, however, no evidence of leakage in $D_\text{det}$.
+In this manuscript we establish that at least 23.5% (out of 88%) of the accuracy can be explained by robust features in $D_\text{rand}$. This is a weak lower bound, established by a linear model, which does not perclude the possibility of further leakage. We find, however, no evidence of leakage in $D_\text{det}$.
 </p>
 
 <h3>Lower Bounding Leakage</h3>
