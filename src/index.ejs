@@ -1,81 +1,86 @@
 <!doctype html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://distill.pub/template.v2.js"></script>
-  <style><%= require("raw-loader!../static/style.css") %></style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://distill.pub/template.v2.js"></script>
+    <style>
+        <%=require("raw-loader!../static/style.css") %>
+    </style>
 </head>
 
 <body>
-<style>
-body {
-  margin: 40px;
-}
+    <style>
+        body {
+            margin: 40px;
+        }
 
-li {
-margin-bottom:0 !important
-}
+        li {
+            margin-bottom: 0 !important
+        }
 
-ul {
-margin-bottom:0 !important
-}
+        ul {
+            margin-bottom: 0 !important
+        }
 
-.definition {
-  margin: 10px 50px 10px 50px;
-  border: 0.5px solid rgb(225,225,225);
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 8px rgba(0,0,0,0.04);
-}
+        .definition {
+            margin: 10px 50px 10px 50px;
+            border: 0.5px solid rgb(225, 225, 225);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.04);
+        }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: 100px 100px 100px;
-  grid-gap: 10px;
-  background-color: #fff;
-  color: #444;
-  width: 50%;
-  margin: 0 auto;
-}
+        .wrapper {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            grid-gap: 10px;
+            background-color: #fff;
+            color: #444;
+            width: 50%;
+            margin: 0 auto;
+        }
 
-.box {
-  background-color: #444;
-  color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 150%;
-}
-
-
-.left {
-  text-align: left;
-  line-height: 20px
-}
-
-.right {
-  text-align: left;
-  line-height: 20px
-}
-
-.grey {
-  color:rgb(140,140,140);
-}
+        .box {
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
 
 
-.mono {
-  font-family: monospace;
-}
+        .left {
+            text-align: left;
+            line-height: 20px
+        }
 
-</style>
+        .right {
+            text-align: left;
+            line-height: 20px
+        }
+
+        .grey {
+            color: rgb(140, 140, 140);
+        }
 
 
-<d-front-matter>
-  <script type="text/json">{
+        .mono {
+            font-family: monospace;
+        }
+    </style>
+
+
+    <d-front-matter>
+        <script type="text/json">{
   "title": "Robust Feature Leakage",
   "description": "An example project using webpack and svelte-loader and ejs to inline SVGs",
   "authors": [
     {
+      "author": "Gabriel Goh",
+      "authorURL": "https://gabgoh.github.io",
+      "affiliation": "OpenAI",
+      "affiliationURL": "https://openai.com"
     }
   ],
   "katex": {
@@ -93,101 +98,185 @@ margin-bottom:0 !important
     ]
   }
   }</script>
-</d-front-matter>
+    </d-front-matter>
 
-<d-title></d-title>
+    <d-title></d-title>
 
-<d-article>
+    <d-article>
+
+        <section id="response-info"><em>
+                This article is part of a collection of responses to Ilyas et al. <d-cite key="ilyas2019adversarial">
+                </d-cite> paper "Adversarial
+                examples are not bugs, they are features". You can learn more about this process in this editorial
+                explanation. The author's rebuttal to this response is reproduced in context at the end of this article.
+                If
+                you want
+                to cite the rebuttal, please cite the linked collection of response rebuttals.</em>
+        </section>
 
 
+        <p>
+            Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> report a surprising result: a model trained on
+            adversarial examples is effective on clean data. They suggest this transfer is driven by adverserial
+            examples containing geuinely useful non-robust cues. But an alternate mechanism for the transfer could be a
+            kind of "robust feature leakage" where the model picks up on faint robust cues in the attacks.
+        </p>
+
+        <!--
 <p>
-Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> report a surprising result: a model trained on adversarial examples is effective on clean data. They suggest this transfer is driven by adverserial examples containing geuinely useful non-robust cues. But an alternate mechanism for the transfer could be a kind of "robust feature leakage" where the model picks up on faint robust cues in the attacks.
-</p>
-
-<!-- 
-<p>
-Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trained on adversarial examples is effective on clean data, a highly surprising result. The primary driver behind this, <d-cite key="ilyas2019adversarial"></d-cite> suggests, is the non-robust cues overlaid on the dataset by the adversery. If adverserial examples contain robust cues too, however, (light as they may be) this presents an alternative mechanism for the transfer. 
+Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trained on adversarial examples is effective on clean data, a highly surprising result. The primary driver behind this, <d-cite key="ilyas2019adversarial"></d-cite> suggests, is the non-robust cues overlaid on the dataset by the adversery. If adverserial examples contain robust cues too, however, (light as they may be) this presents an alternative mechanism for the transfer.
 </p>
  -->
 
 
-<p>
-We show that at least 23.5% (out of 88%) of the accuracy can be explained by robust features in $D_\text{rand}$. This is a weak lower bound, established by a linear model, and does not perclude the possibility of further leakage. On the other hand, we find no evidence of leakage in $D_\text{det}$. 
-</p>
+        <p>
+            We show that at least 23.5% (out of 88%) of the accuracy can be explained by robust features in
+            $D_\text{rand}$. This is a weak lower bound, established by a linear model, and does not perclude the
+            possibility of further leakage. On the other hand, we find no evidence of leakage in $D_\text{det}$.
+        </p>
 
-<h3>Lower Bounding Leakage</h3>
-<p>
-Our technique for quantifying leakage consisting of two steps:
-  </p>  
-  <div style="margin: 0px 10px 0px 10px">
-    <ol type="1">
-      <li>First, we construct features $f_i(x) = w_i^Tx$ that are provably robust, in a sense we will soon specify.</li>
-      <li>Next, we train a linear classifier <d-footnote>as per <d-cite key="ilyas2019adversarial"></d-cite>, Equation 3</d-footnote> on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and $\hat{\mathcal{D}}_{\text{rand}}$ (Defined <d-cite key="ilyas2019adversarial"></d-cite>, Table 1) on these robust features <i>only</i>.
-    </ol>
-  </div>
+        <h3>Lower Bounding Leakage</h3>
+        <p>
+            Our technique for quantifying leakage consisting of two steps:
+        </p>
+        <div style="margin: 0px 10px 0px 10px">
+            <ol type="1">
+                <li>First, we construct features $f_i(x) = w_i^Tx$ that are provably robust, in a sense we will soon
+                    specify.</li>
+                <li>Next, we train a linear classifier <d-footnote>as per <d-cite key="ilyas2019adversarial"></d-cite>,
+                        Equation 3</d-footnote> on the datasets $\hat{\mathcal{D}}_{\text{det}}$ and
+                    $\hat{\mathcal{D}}_{\text{rand}}$ (Defined <d-cite key="ilyas2019adversarial"></d-cite>, Table 1) on
+                    these robust features <i>only</i>.
+            </ol>
+        </div>
 
-  <p>
-  Since Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> only specify robustness in the two class case, we propose two possible specifications for what constitutes a <i>robust feature</i> in the multiclass setting:
+        <p>
+            Since Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> only specify robustness in the two class
+            case, we propose two possible specifications for what constitutes a <i>robust feature</i> in the multiclass
+            setting:
 
-    <div class="definition">
-      <span style="font-variant: small-caps;"><b> Specification 1</b></span><br>For at least one of the classes, the feature is $\gamma$-robustly useful <d-cite key="ilyas2019adversarial"> </d-cite> with $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.
-    </div>
+            <div class="definition">
+                <span style="font-variant: small-caps;"><b> Specification 1</b></span><br>For at least one of the
+                classes, the feature is $\gamma$-robustly useful <d-cite key="ilyas2019adversarial"> </d-cite> with
+                $\gamma = 0$, and the set of valid perturbations equal to an $L_2$ norm ball with radius 0.25.
+            </div>
 
-    <div class="definition">
-      <span style="font-variant: small-caps;"><b> Specification 2</b></span> <br>
-      The feature comes from a robust model for which at least 80% of points in the test set have predictions that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
-    </div>
+            <div class="definition">
+                <span style="font-variant: small-caps;"><b> Specification 2</b></span> <br>
+                The feature comes from a robust model for which at least 80% of points in the test set have predictions
+                that remain static in a neighborhood of radius 0.25 on the $L_2$ norm ball.
+            </div>
 
-  </p>
+        </p>
 
-  <p>
-  We find features that satisfy <i>both</i> specifications by using the 10 linear features of a robust linear model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified analytically. We leave the reader to inspect the weights corresponding to the features manually:
-  </p>
-  <figure id="robust" style="grid-column: screen;">
-  </figure>
+        <p>
+            We find features that satisfy <i>both</i> specifications by using the 10 linear features of a robust linear
+            model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified
+            analytically. We leave the reader to inspect the weights corresponding to the features manually:
+        </p>
+        <figure id="robust" style="grid-column: screen;">
+        </figure>
 
-  <p>
-  Training a linear model on the above robust features on $\hat{\mathcal{D}}_{\text{rand}}$ and testing on the CIFAR test set incurs an accuracy of <b>23.5%</b> (out of 88%). Doing the same on $\hat{\mathcal{D}}_{\text{det}}$ incurs an accuracy of <b>6.81%</b> (out of 44%).
-  </p>
-  <p>
-  The contrasting results suggest that the the two experiements should be interpreted differently. The transfer results of $\hat{\mathcal{D}}_{\text{rand}}$ in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite> should approached with caution: A non-trivial portion of the accuracy can be attributed to robust features. Note that this bound is weak: this bound could be possibly be improved if we used nonlinear features, e.g. from a robust deep neural network.
-  </p>
-  <p>
-  The results of $\hat{\mathcal{D}}_{\text{det}}$ in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite> however, are on stronger footing. We find no evidence of feature leakage (in fact, we find negative leakage &#8212; an influx!). We thus conclude that it is plausible the majority of the accuracy is driven by non-robust features, exactly the thesis of  <d-cite key="ilyas2019adversarial"></d-cite>. 
-  </p>
-<!--   <p>
+        <p>
+            Training a linear model on the above robust features on $\hat{\mathcal{D}}_{\text{rand}}$ and testing on the
+            CIFAR test set incurs an accuracy of <b>23.5%</b> (out of 88%). Doing the same on
+            $\hat{\mathcal{D}}_{\text{det}}$ incurs an accuracy of <b>6.81%</b> (out of 44%).
+        </p>
+        <p>
+            The contrasting results suggest that the the two experiements should be interpreted differently. The
+            transfer results of $\hat{\mathcal{D}}_{\text{rand}}$ in Table 1 of <d-cite key="ilyas2019adversarial">
+            </d-cite> should approached with caution: A non-trivial portion of the accuracy can be attributed to robust
+            features. Note that this bound is weak: this bound could be possibly be improved if we used nonlinear
+            features, e.g. from a robust deep neural network.
+        </p>
+        <p>
+            The results of $\hat{\mathcal{D}}_{\text{det}}$ in Table 1 of <d-cite key="ilyas2019adversarial"></d-cite>
+            however, are on stronger footing. We find no evidence of feature leakage (in fact, we find negative leakage
+            &#8212; an influx!). We thus conclude that it is plausible the majority of the accuracy is driven by
+            non-robust features, exactly the thesis of <d-cite key="ilyas2019adversarial"></d-cite>.
+        </p>
+        <!--   <p>
   The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p>  -->
 
-</d-article>
+        <section id="rebuttal">
+            <div class="rebuttal-info">The original paper's authors' rebuttal is shown here in context. If you want
+                to cite this rebuttal, please cite the linked collection of response rebuttals.</div>
+            <p><b>Response Summary</b>: This
+                is a valid concern that was actually one of our motivations for creating the
+                $\widehat{\mathcal{D}}_{det}$ dataset (which, as the comment notes, actually
+                has <i>misleading</i> robust features). The corresponding experiment further
+                improves our understanding of the underlying phenomenon. </p>
+
+            <p><b>Response</b>: This comment raises a valid concern which was in fact one of
+                the primary reasons for designing the $\widehat{\mathcal{D}}_{det}$ dataset.
+                In particular, recall the construction of the $\widehat{\mathcal{D}}_{rand}$
+                dataset: assign each input a random target label and do PGD towards that label.
+                Note that unlike the $\widehat{\mathcal{D}}_{det}$ dataset (in which the
+                target class is deterministically chosen), the $\widehat{\mathcal{D}}_{rand}$
+                dataset allows for robust features to actually have a (small) positive
+                correlation with the label. </p>
+
+            <p>To see how this can happen, consider the following simple setting: we have a
+                single feature $f(x)$ that is $1$ for cats and $-1$ for dogs. If $\epsilon = 0.1$
+                then $f(x)$ is certainly a robust feature. However, randomly assigning labels
+                (as in the dataset $\widehat{\mathcal{D}}_{rand}$) would make this feature
+                uncorrelated with the assigned label, i.e., $E[f(x)\cdot y] = 0$. Performing a
+                targeted attack will thus induce some correlation with the assigned label,
+                allowing a model to learn to correctly classify new inputs. </p>
+
+            <p>In other words, starting from a dataset with no features, one can encode
+                robust features within small perturbations. In contrast, in the
+                $\widehat{\mathcal{D}}_{det}$ dataset, the robust features are <i>correlated
+                    with the original label</i> (since the labels are permuted) and since they are
+                robust, they cannot be flipped to correlate with the newly assigned (wrong)
+                label. Still, the $\widehat{\mathcal{D}}_{rand}$ dataset enables us to show
+                that (a) PGD-based adversarial examples actually alter features in the data and
+                (b) models can learn from human-meaningless/mislabeled training data. The
+                $\widehat{\mathcal{D}}_{det}$ dataset, on the other hand, illustrates that the
+                non-robust features are actually sufficient for generalization and can be
+                preferred over robust ones in natural settings.</p>
+
+            <p>The experiment put forth in the comment is a clever way of showing that such
+                leakage is indeed possible. However, we want to stress (as the comment itself
+                does) that robust feature leakage does <i>not</i> have an impact on our main
+                thesis&mdash;the $\widehat{\mathcal{D}}_{det}$ dataset explicitly controls
+                for robust
+                feature leakage (and in fact, allows us to quantify the models’ preference for
+                robust features vs non-robust features&mdash;see Appendix D.6 in the paper).</p>
+
+        </section>
+
+    </d-article>
 
 
 
-<d-appendix>
-  <h3>Acknowledgments</h3>
-  <p>
-    Shan Carter (started the project), Preetum (technical discussion), Chris Olah (technical discussion), Ria (technical discussion), Aditiya (feedback)
-  </p>
+    <d-appendix>
+        <h3>Acknowledgments</h3>
+        <p>
+            Shan Carter (started the project), Preetum (technical discussion), Chris Olah (technical discussion), Ria
+            (technical discussion), Aditiya (feedback)
+        </p>
 
-  <p>
-    Many of our diagrams are based on...
-  </p>
+        <p>
+            Many of our diagrams are based on...
+        </p>
 
-  <h3>Author Contributions</h3>
-  <p>
-    <b>Research:</b> Alex developed ...
-  </p>
+        <h3>Author Contributions</h3>
+        <p>
+            <b>Research:</b> Alex developed ...
+        </p>
 
-  <p>
-    <b>Writing & Diagrams:</b> The text was initially drafted by...
-  </p>
+        <p>
+            <b>Writing & Diagrams:</b> The text was initially drafted by...
+        </p>
 
 
-  <d-footnote-list></d-footnote-list>
-  <d-citation-list></d-citation-list>
-</d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+    </d-appendix>
 
-<!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
-<d-bibliography src="bibliography.bib"></d-bibliography>
+    <!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
+    <d-bibliography src="bibliography.bib"></d-bibliography>
 
 </body>
