@@ -104,14 +104,11 @@
 
     <d-article>
 
-        <section id="response-info"><em>
-                This article is part of a collection of responses to Ilyas et al. <d-cite key="ilyas2019adversarial">
-                </d-cite> paper "Adversarial
-                examples are not bugs, they are features". You can learn more about this process in this editorial
-                explanation. The author's rebuttal to this response is reproduced in context at the end of this article.
-                If
-                you want
-                to cite the rebuttal, please cite the linked collection of response rebuttals.</em>
+        <section class="response-info">
+            This article is part of a discussion of Ilyas et al. <d-cite key="ilyas2019adversarial">
+            </d-cite> paper <em>"Adversarial
+                examples are not bugs, they are features"</em>. You can learn more in the main <a
+                href="/2019/advex-bugs-responses/">discussion article</a>.</em>
         </section>
 
 
@@ -199,14 +196,17 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
   The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p>  -->
 
+        <div class="response-info">
+            Ilyas, et. al.'s rebuttal is shown here in context. To cite this rebuttal, please cite their <a
+                href="/2019/advex-bugs-responses/rebuttal/#citation">collection of response rebuttals</a>.
+        </div>
+
         <section id="rebuttal">
-            <div class="rebuttal-info">The original paper's authors' rebuttal is shown here in context. If you want
-                to cite this rebuttal, please cite the linked collection of response rebuttals.</div>
-            <p><b>Response Summary</b>: This
-                is a valid concern that was actually one of our motivations for creating the
-                $\widehat{\mathcal{D}}_{det}$ dataset (which, as the comment notes, actually
-                has <i>misleading</i> robust features). The corresponding experiment further
-                improves our understanding of the underlying phenomenon. </p>
+            <b>Response Summary</b>: This
+            is a valid concern that was actually one of our motivations for creating the
+            $\widehat{\mathcal{D}}_{det}$ dataset (which, as the comment notes, actually
+            has <i>misleading</i> robust features). The provided experiment further
+            improves our understanding of the underlying phenomenon. </p>
 
             <p><b>Response</b>: This comment raises a valid concern which was in fact one of
                 the primary reasons for designing the $\widehat{\mathcal{D}}_{det}$ dataset.
@@ -221,9 +221,11 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
                 single feature $f(x)$ that is $1$ for cats and $-1$ for dogs. If $\epsilon = 0.1$
                 then $f(x)$ is certainly a robust feature. However, randomly assigning labels
                 (as in the dataset $\widehat{\mathcal{D}}_{rand}$) would make this feature
-                uncorrelated with the assigned label, i.e., $E[f(x)\cdot y] = 0$. Performing a
-                targeted attack will thus induce some correlation with the assigned label,
-                allowing a model to learn to correctly classify new inputs. </p>
+                uncorrelated with the assigned label, i.e., we would have that $E[f(x)\cdot y] = 0$. Performing a
+                targeted attack might in this case induce some correlation with the
+                assigned label, as we could have $\mathbb{E}[f(x+\eta\cdot\nabla
+                f(x))\cdot y] > \mathbb{E}[f(x)\cdot y] = 0$, allowing a model to learn
+                to correctly classify new inputs. </p>
 
             <p>In other words, starting from a dataset with no features, one can encode
                 robust features within small perturbations. In contrast, in the
@@ -243,8 +245,14 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
                 thesis&mdash;the $\widehat{\mathcal{D}}_{det}$ dataset explicitly controls
                 for robust
                 feature leakage (and in fact, allows us to quantify the models’ preference for
-                robust features vs non-robust features&mdash;see Appendix D.6 in the paper).</p>
+                robust features vs non-robust features&mdash;see Appendix D.6 in the
+                <a href="https://arxiv.org/abs/1905.02175">paper</a>).</p>
 
+        </section>
+
+        <section class="response-info">
+            You can find more responses in the main <a href="/2019/advex-bugs-responses/">discussion
+                article</a>.</em>
         </section>
 
     </d-article>
