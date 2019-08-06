@@ -163,7 +163,12 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
             model trained on CIFAR-10. Because the features are linear, the above two conditions can be certified
             analytically. We leave the reader to inspect the weights corresponding to the features manually:
         </p>
-        <figure id="robust" style="grid-column: screen;">
+        <figure class="subgrid">
+            <div class="l-screen" id="robust"></div>
+            <figcaption class="l-body" style="margin-top: 1em">
+                10 Features, $F_C$, of robust linear classifier $C$. Each feature is $\gamma_i$-robustly-useful with
+                respect to label $i$. Visualized are the weights $w_i$ of features $f_i(x) = w_i^Tx$.
+            </figcaption>
         </figure>
 
         <p>
