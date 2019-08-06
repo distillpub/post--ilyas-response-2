@@ -11,10 +11,6 @@
 
 <body>
     <style>
-        body {
-            margin: 40px;
-        }
-
         li {
             margin-bottom: 0 !important
         }
@@ -104,13 +100,7 @@
 
     <d-article>
 
-        <section class="response-info">
-            This article is part of a discussion of Ilyas et al. <d-cite key="ilyas2019adversarial">
-            </d-cite> paper <em>"Adversarial
-                examples are not bugs, they are features"</em>. You can learn more in the main <a
-                href="/2019/advex-bugs-responses/">discussion article</a>.</em>
-        </section>
-
+        <%= require("raw-loader!../../shared/header-info.htmlt") %>
 
         <p>
             Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> report a surprising result: a model trained on
@@ -196,10 +186,7 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
   The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p>  -->
 
-        <div class="response-info">
-            Ilyas, et. al.'s rebuttal is shown here in context. To cite this rebuttal, please cite their <ag
-                href="/2019/advex-bugs-responses/rebuttal/#citation">collection of response rebuttals</a>.
-        </div>
+        <%= require("raw-loader!../../shared/comment-header-info.htmlt") %>
 
         <section id="rebuttal">
             <b>Response Summary</b>: This
@@ -250,10 +237,7 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
 
         </section>
 
-        <section class="response-info">
-            You can find more responses in the main <a href="/2019/advex-bugs-responses/">discussion
-                article</a>.</em>
-        </section>
+        <%= require("raw-loader!../../shared/comment-footer-info.htmlt") %>
 
     </d-article>
 

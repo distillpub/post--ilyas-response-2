@@ -74,10 +74,6 @@ d-figure > figure {
 
 <body>
     <style>
-        body {
-            margin: 40px;
-        }
-
         li {
             margin-bottom: 0 !important
         }
@@ -167,12 +163,84 @@ d-figure > figure {
 
     <d-article>
 
-        <section class="response-info">
-            This article is part of a discussion of Ilyas et al. <d-cite key="ilyas2019adversarial">
-            </d-cite> paper <em>"Adversarial
-                examples are not bugs, they are features"</em>. You can learn more in the main <a
-                href="/2019/advex-bugs-responses/">discussion article</a>.</em>
-        </section>
+        <style>
+    #rebuttal,
+    .comment-info {
+        background-color: hsl(54, 78%, 96%);
+        border-left: solid hsl(54, 33%, 67%) 1px;
+        padding: 1em;
+        color: hsla(0, 0%, 0%, 0.67);
+    }
+
+    #header-info {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        display: grid;
+        grid-template-columns: 65px max-content 1fr;
+        grid-template-areas:
+            "icon explanation explanation"
+            "icon back comment";
+        grid-column-gap: 1.5em;
+    }
+
+    #header-info .icon-multiple-pages {
+        grid-area: icon;
+        padding: 0.5em;
+        content: url(images/multiple-pages.svg);
+    }
+
+    #header-info .explanation {
+        grid-area: explanation;
+        font-size: 85%;
+        color: hsl(0, 0%, 0.33);
+    }
+
+    #header-info .back {
+        grid-area: back;
+    }
+
+    #header-info .back::before {
+
+        content: "←";
+        margin-right: 0.5em;
+    }
+
+    #header-info .comment {
+        grid-area: comment;
+        scroll-behavior: smooth;
+    }
+
+    #header-info .comment::before {
+        content: "↓";
+        margin-right: 0.5em;
+    }
+
+    #header-info a.back,
+    #header-info a.comment {
+        font-size: 80%;
+        font-weight: 600;
+        border-bottom: none;
+        text-transform: uppercase;
+        color: #2e6db7;
+        display: block;
+        margin-top: 0.25em;
+        letter-spacing: 0.25px;
+    }
+</style>
+
+<section id="header-info" class="comment-info">
+    <div class="icon-multiple-pages"></div>
+    <p class="explanation">
+        This article is part of a discussion of Ilyas et al. paper
+        <em>"Adversarial examples are not bugs, they are features".</em>
+        You can learn more in the
+        <a href="/2019/advex-bugs-discussion/">
+            main discussion article
+        </a>.
+    </p>
+    <a class="back" href="/2019/advex-bugs-discussion/#comments">Other Comments</a>
+    <a class="comment" href="#rebuttal">Comment by Ilyas et al.</a>
+</section>
 
 
         <p>
@@ -259,10 +327,11 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
   The contrasting results, thus, point to methodological advise &#8212; when disentangling two cues in an image, we believe safer is better to drive correlations negative than it is to 0.
   </p>  -->
 
-        <div class="response-info">
-            Ilyas, et. al.'s rebuttal is shown here in context. To cite this rebuttal, please cite their <ag
-                href="/2019/advex-bugs-responses/rebuttal/#citation">collection of response rebuttals</a>.
-        </div>
+        <div class="comment-info">
+    To cite Ilyas et al.'s response, please cite their
+    <a href="/2019/advex-bugs-responses/original-authors/#citation">collection of responses</a>.
+</div>
+
 
         <section id="rebuttal">
             <b>Response Summary</b>: This
@@ -313,10 +382,10 @@ Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> show that a model trai
 
         </section>
 
-        <section class="response-info">
-            You can find more responses in the main <a href="/2019/advex-bugs-responses/">discussion
-                article</a>.</em>
-        </section>
+        <div class="comment-info">
+    You can find more responses in the <a href="/2019/advex-bugs-discussion/"> main discussion article</a>.
+</div>
+
 
     </d-article>
 
